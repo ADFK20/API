@@ -4,13 +4,13 @@ import path from 'path'
 import fs from 'fs'
 import titles from "../../../data/_data";
 import resize from "../../fun";
-
+// the  fun that check and handel the Querys of the request 
 const check = Router();
 
 check.get("/",   async (req:Request, res:Response)=>{
-
+// chacking the the route is right 
     console.log("hello this is the main image route");
-    
+    // declear all the constants these i'm gonna need 
     const Query = req.query;
 
     const name: string = Query.name            as string;
@@ -21,7 +21,6 @@ check.get("/",   async (req:Request, res:Response)=>{
     const location = project +`/images/${name}.jpg`;
 
     const newimges =  project +'/images/created/'
-//     const newlocation = project +'/images/created'+name + width +'*'+height+'.jpg';
 
     const title =titles.includes(name);
 
@@ -30,7 +29,7 @@ check.get("/",   async (req:Request, res:Response)=>{
     newimges + name + '-(' + width + ',' + height + ').jpg';
     const existlocation: boolean = existsSync(location);
     const existnewlocation: boolean = existsSync(newlocation);
-   
+   // handeling request and erroes
     if 
     (!name || !width|| !height ) {
         console.log('this is the first test : '+name+width+height);
@@ -64,7 +63,8 @@ check.get("/",   async (req:Request, res:Response)=>{
     if (!existnewlocation) {
       await resize( width, height,location,newlocation);
     }    else console.log('\n -----------\nThe new location: ', newlocation);
-    return res.status(200).sendFile(newlocation) as void as undefined;
+    //the final fun that will resize the image 
+    return res.status(200).sendFile(newlocation) as void ;
 }
 });
 

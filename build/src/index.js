@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const imageFun_1 = __importDefault(require("./routes/api/imageFun"));
 const port = 5000;
 const app = (0, express_1.default)();
+// the api app will listen on "localhost:5000"
 app.get('/', (req, res) => {
     res.send(`<div style='display: flex;
     align-items: center;
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
     background-color: burlywood;
     color: red;'><h1 style='color:blue'>welcome this "coda" my API</h1></div>`);
 });
+//the rout that process the image
 app.use('/image', imageFun_1.default);
 app.listen(port, () => {
     console.log("localhost is  on " + port);

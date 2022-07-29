@@ -9,9 +9,12 @@ const path_1 = __importDefault(require("path"));
 const fs_2 = __importDefault(require("fs"));
 const _data_1 = __importDefault(require("../../../data/_data"));
 const fun_1 = __importDefault(require("../../fun"));
+// the  fun that check and handel the Querys of the request 
 const check = (0, express_1.Router)();
 check.get("/", async (req, res) => {
+    // chacking the the route is right 
     console.log("hello this is the main image route");
+    // declear all the constants these i'm gonna need 
     const Query = req.query;
     const name = Query.name;
     const width = parseInt(String(Query.width));
@@ -19,11 +22,11 @@ check.get("/", async (req, res) => {
     const project = path_1.default.resolve('./');
     const location = project + `/images/${name}.jpg`;
     const newimges = project + '/images/created/';
-    //     const newlocation = project +'/images/created'+name + width +'*'+height+'.jpg';
     const title = _data_1.default.includes(name);
     const newlocation = newimges + name + '-(' + width + ',' + height + ').jpg';
     const existlocation = (0, fs_1.existsSync)(location);
     const existnewlocation = (0, fs_1.existsSync)(newlocation);
+    // handeling request and erroes
     if (!name || !width || !height) {
         console.log('this is the first test : ' + name + width + height);
         return res
@@ -56,6 +59,7 @@ check.get("/", async (req, res) => {
         }
         else
             console.log('\n -----------\nThe new location: ', newlocation);
+        //the final fun that will resize the image 
         return res.status(200).sendFile(newlocation);
     }
 });
